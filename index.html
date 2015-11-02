@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <title>webmalex test</title>
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    <script src="http://angularlight.org/bin/alight_0.8.3.min.js"></script>
+  </head>
 <body>
-<p>webmalex ...</p>
+<div al-app al-init="title='Hello!'">
+    <input al-value="title" type="text" class="form-control" />
+    <p>{{title}}</p>
+</div>
 </body>
 </html>
