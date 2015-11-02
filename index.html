@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>webmalex test</title>
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://angularlight.org/bin/alight_0.8.3.min.js"></script>
   </head>
 <body>
@@ -11,5 +12,51 @@
     <input al-value="title" type="text" class="form-control" />
     <p>{{title}}</p>
 </div>
+
+<script type="text/javascript">
+alight.controllers.todoCtrl = function($scope) {
+    $scope.list = [
+        { title: 'first', done: true },
+        { title: 'second', done: false }];
+
+    $scope.append = function() {
+        $scope.list.push({ title: $scope.title, done: false });
+        $scope.title = '';
+    };
+    $scope.remove = function(item) {
+        var i = $scope.list.indexOf(item);
+        $scope.list.splice(i, 1);
+    };
+
+    $scope.total = function() {
+        var total = 0;
+        $.each($scope.list, function(_, item) {
+            if(!item.done) total += 1
+        });
+        return total;
+    };
+};
+</script>
+
+        <div class="col-lg-4">
+<div al-app="todoCtrl" class="well">
+    <h3>ToDo</h3>
+
+    <form class="form-inline" al-submit="append()">
+        <input class="form-control" al-value="title" type="text" />
+        <input class="btn btn-primary" type="submit" value="Append" />
+    </form>
+
+    <ul style="padding-left: 20px;">
+        <li al-repeat="item in list">
+            <input type="checkbox" al-checked="item.done" />
+            <span al-css="done:item.done">{{item.title}}</span>
+            <a href al-click="remove(item)">remove</a>
+        </li>
+    </ul>
+
+    <p>Total: {{total()}} / {{list.length}}</p>
+</div>
+
 </body>
 </html>
